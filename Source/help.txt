@@ -1,0 +1,55 @@
+The Apollonian Gasket in 3D
+
+The panel on the left holds two kinds of controls:
+buttons, and one or two dimensional widgets.
+
+Widgets:
+Slide your finger up and down the list to select
+the desired widget.  Its legend will turn Green.
+
+Now on the image,
+slider your finger to control the widget's parameters.
+
+Double tap on a widget legend to toggle it between
+fast and slow editing.  Red graph background = slow.
+
+Buttons:
+A button command is performed by selecting the
+legend, then releasing your finger.
+
+Note: Double Tap image to toggle display of control panel.
+
+A. Zoom: affect camera distance from towers
+B. minDist: control how closely the distance estimation
+   algorithm approaches the objects, effectively the
+   image resolution.
+C. Multiplier: Drastic effect in the algorithm,
+   but nothing compared to
+D. Dali: who tears the towers into pieces like
+   something Salvador Dali would enjoy.
+E. Light XY  control position of Light source
+F. Light Z  control position of Light source
+
+G. Collection of lighting effects.
+   sMin,Max,Mult and Amt control a Shadow effect.
+H. autoChg: auto Change
+   automatically cycles all the lighting effects.
+
+I. Save/Load: Launch the Save/Load dialog.
+K. Reset to sane parameters
+
+L. Stereo: toggles stereo viewing
+   Not very exciting on this app; don't know why..
+   The image is rendered twice, for 'cross-eyed' 3D viewing.
+   With the iPad held two feet away, slightly cross
+   your eyes so that there is a third image in the middle.
+   Relax your gaze, and concentrate only on that
+   middle image, which is in 3D.
+
+M. Move:  two widgets that are always in the lower
+   left corner.  The first controls X/Y jogging,
+   while the second controls In/Out movement.
+
+N. Rotate: widget always in the lower rigth corner
+   of the screen controls (sort of)
+   rotation of the image.

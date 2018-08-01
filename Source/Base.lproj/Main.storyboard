@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="Apollonian2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9sQ-bp-QHc"/>
+                        <viewControllerLayoutGuide type="bottom" id="yDg-Pc-LEh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3se-qz-xqx" customClass="Background" customModule="Apollonian2" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKK-Rp-etB" customClass="MetalTextureView" customModule="Apollonian2" customModuleProvider="target">
+                                <rect key="frame" x="36" y="20" width="157" height="135"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="5In-BA-EQl" appends="YES" id="YBY-JF-l16"/>
+                                    <outletCollection property="gestureRecognizers" destination="S5V-ky-3Ql" appends="YES" id="ebL-wJ-xbN"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GUA-2R-0bm" customClass="CTranslate" customModule="Apollonian2" customModuleProvider="target">
+                                <rect key="frame" x="36" y="174" width="105" height="88"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T2E-Ti-j0K" customClass="CRotate" customModule="Apollonian2" customModuleProvider="target">
+                                <rect key="frame" x="277" y="174" width="105" height="88"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QFk-9b-YQc" customClass="CTranslateZ" customModule="Apollonian2" customModuleProvider="target">
+                                <rect key="frame" x="149" y="174" width="37" height="88"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w7-ei-Mnl" customClass="MetalTextureView" customModule="Apollonian2" customModuleProvider="target">
+                                <rect key="frame" x="209" y="21" width="157" height="135"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="UTi-1R-qn1" appends="YES" id="Ott-hr-fN5"/>
+                                    <outletCollection property="gestureRecognizers" destination="e7B-wy-e5V" appends="YES" id="tFJ-Vj-1pM"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eco-7z-OWF" customClass="WidgetGroup" customModule="Apollonian2" customModuleProvider="target">
+                                <rect key="frame" x="36" y="293" width="105" height="88"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.039313673250761294" green="0.039313673250761294" blue="0.039313673250761294" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                    </view>
+                    <connections>
+                        <outlet property="cRotate" destination="T2E-Ti-j0K" id="f9w-CA-90f"/>
+                        <outlet property="cTranslate" destination="GUA-2R-0bm" id="6lI-ri-CAL"/>
+                        <outlet property="cTranslateZ" destination="QFk-9b-YQc" id="Hzh-L4-ehq"/>
+                        <outlet property="metalTextureViewL" destination="SKK-Rp-etB" id="Jbs-3T-yfd"/>
+                        <outlet property="metalTextureViewR" destination="2w7-ei-Mnl" id="hHh-ca-AIm"/>
+                        <outlet property="wg" destination="eco-7z-OWF" id="pVg-Kb-s6C"/>
+                        <segue destination="5PV-a9-Q6R" kind="popoverPresentation" identifier="helpSegue" popoverAnchorView="eco-7z-OWF" id="6be-3m-Iei">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
+                        <segue destination="9Km-CV-csu" kind="popoverPresentation" identifier="saveLoadSegue" popoverAnchorView="eco-7z-OWF" id="eeJ-Xe-QTi">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="5In-BA-EQl">
+                    <connections>
+                        <action selector="panGesture:" destination="BV1-FR-VrT" id="vU5-9Y-46x"/>
+                    </connections>
+                </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="UTi-1R-qn1">
+                    <connections>
+                        <action selector="panGesture:" destination="BV1-FR-VrT" id="D0G-3E-4U0"/>
+                    </connections>
+                </panGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="S5V-ky-3Ql">
+                    <connections>
+                        <action selector="tapGesture:" destination="BV1-FR-VrT" id="27Q-Ux-UD4"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="e7B-wy-e5V">
+                    <connections>
+                        <action selector="tapGesture:" destination="BV1-FR-VrT" id="QHR-TW-Bry"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-9291" y="-3912"/>
+        </scene>
+        <!--Help View Controller-->
+        <scene sceneID="jnZ-dH-OqI">
+            <objects>
+                <viewController id="5PV-a9-Q6R" customClass="HelpViewController" customModule="MandelBulb2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4MA-UN-wkQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="m6g-MC-C3W"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="left" id="V9h-fc-xgR">
+                        <rect key="frame" x="0.0" y="0.0" width="640" height="640"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q17-uV-phX">
+                                <rect key="frame" x="147" y="35" width="473" height="585"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bulbHelp" translatesAutoresizingMaskIntoConstraints="NO" id="x3K-S2-qtf">
+                                <rect key="frame" x="20" y="35" width="119" height="585"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="119" id="CEz-fi-cBo"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" staticText="YES"/>
+                        </accessibility>
+                        <constraints>
+                            <constraint firstItem="x3K-S2-qtf" firstAttribute="top" secondItem="q17-uV-phX" secondAttribute="top" id="L9U-mz-rH2"/>
+                            <constraint firstItem="x3K-S2-qtf" firstAttribute="top" secondItem="4MA-UN-wkQ" secondAttribute="bottom" constant="15" id="RHm-dp-Ksc"/>
+                            <constraint firstAttribute="bottom" secondItem="x3K-S2-qtf" secondAttribute="bottom" constant="20" symbolic="YES" id="Vvx-i3-fv1"/>
+                            <constraint firstItem="q17-uV-phX" firstAttribute="trailing" secondItem="V9h-fc-xgR" secondAttribute="trailingMargin" id="grc-1f-JOO"/>
+                            <constraint firstItem="q17-uV-phX" firstAttribute="leading" secondItem="x3K-S2-qtf" secondAttribute="trailing" constant="8" symbolic="YES" id="pSR-4f-gys"/>
+                            <constraint firstItem="x3K-S2-qtf" firstAttribute="bottom" secondItem="q17-uV-phX" secondAttribute="bottom" id="rt4-Pf-mx1"/>
+                            <constraint firstItem="x3K-S2-qtf" firstAttribute="leading" secondItem="V9h-fc-xgR" secondAttribute="leadingMargin" id="w2d-wq-VlM"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="640" height="640"/>
+                    <size key="freeformSize" width="640" height="640"/>
+                    <connections>
+                        <outlet property="textView" destination="q17-uV-phX" id="xc3-nP-eHV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Xa-lR-bV6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-8657" y="-4180"/>
+        </scene>
+        <!--SaveLoadVC-->
+        <scene sceneID="oZi-uw-QrZ">
+            <objects>
+                <viewController title="KeypadVC" id="9Km-CV-csu" userLabel="SaveLoadVC" customClass="SaveLoadViewController" customModule="MandelBulb2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7Uk-Y1-UDK"/>
+                        <viewControllerLayoutGuide type="bottom" id="W8F-C1-ZGy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="left" id="oUv-ak-g2W">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="58" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="quR-aL-9Ie">
+                                <rect key="frame" x="13" y="9" width="367" height="571"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SLCell" rowHeight="58" id="MZd-mj-rfN" customClass="SaveLoadCell" customModule="MandelBulb2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="367" height="58"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MZd-mj-rfN" id="wLU-xi-pCX">
+                                            <rect key="frame" x="0.0" y="0.0" width="367" height="57.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwK-cR-uYm">
+                                                    <rect key="frame" x="10" y="6" width="275" height="41"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="Load">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="buttonTapped:" destination="MZd-mj-rfN" eventType="touchUpInside" id="xxT-BR-fxy"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJo-ZV-SsQ">
+                                                    <rect key="frame" x="306" y="7" width="46" height="41"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="Save">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="buttonTapped:" destination="MZd-mj-rfN" eventType="touchUpInside" id="dNf-e0-40S"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="loadCell" destination="hwK-cR-uYm" id="hsD-Gj-bLj"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="400" height="600"/>
+                    <size key="freeformSize" width="400" height="600"/>
+                    <connections>
+                        <outlet property="tableView" destination="quR-aL-9Ie" id="jjb-gG-dU7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CGa-Ft-GDC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-8751" y="-3788"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bulbHelp" width="291" height="1450"/>
+    </resources>
+</document>
