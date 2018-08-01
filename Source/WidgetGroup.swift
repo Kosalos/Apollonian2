@@ -10,7 +10,7 @@ protocol WGDelegate {
 
 enum WgEntryKind { case singleFloat,dualFloat,dropDown,option,command,legend,line,string,color,move,gap }
 enum CmdIdent { case none,changeEnd,power,zoom,mDist,multiplier,dali,light,ambient,diffuse,specular,harshness,saturation,
-    gamma,shadowMin,shadowMax,shadowMult,shadowAmt,reset,saveLoad,help,stereo,parallax,autoChg,loadedData }
+    gamma,shadowMin,shadowMax,shadowMult,shadowAmt,reset,saveLoad,help,stereo,parallax,autoChg,loadedData,foam }
 
 let NONE:Int = -1
 let FontSZ:CGFloat = 20

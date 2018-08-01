@@ -35,6 +35,8 @@ G. Collection of lighting effects.
 H. autoChg: auto Change
    automatically cycles all the lighting effects.
 
+Not shown: Foam  experimental variable
+
 I. Save/Load: Launch the Save/Load dialog.
 K. Reset to sane parameters
 

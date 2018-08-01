@@ -36,8 +36,8 @@ float scene(float3 pos,Control control) {
         pos = -1.0 + 2.0 * fract(0.5 * pos + 0.5);
         float r2 = dot(pos,pos);
         float k = t/r2;
-        pos *= k;
-        s *= k;
+        pos *= k * control.foam;
+        s *= k * control.foam;
     }
     
     return 1.5 * (0.25 * abs(pos.y) / (s * scale) );

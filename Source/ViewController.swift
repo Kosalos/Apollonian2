@@ -111,6 +111,8 @@ class ViewController: UIViewController, WGDelegate  {
         wg.addSingleFloat(&control.lighting.shadowAmt,sPmin,sPmax,sPchg, "sAmt",.shadowAmt)
         wg.addCommand("auto Chg",.autoChg)
         wg.addLine()
+        wg.addSingleFloat(&control.foam, 0.5,2,0.1, "Foam",.foam)
+        wg.addLine()
         wg.addCommand("Save/Load",.saveLoad)
         wg.addCommand("Help",.help)
         wg.addCommand("Reset",.reset)
@@ -286,7 +288,8 @@ class ViewController: UIViewController, WGDelegate  {
         control.lighting.shadowMult = 0.5
         control.lighting.shadowAmt = 0.5
         control.dali = 1
-        
+        control.foam = 1
+
         autoChg = false
         resetArcBall()
     }

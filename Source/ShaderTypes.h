@@ -24,10 +24,13 @@ typedef struct {
     float parallax;
     float multiplier;
     float dali;
-
+    
     float cameraX,cameraY,cameraZ; // swift access
     float focusX,focusY,focusZ;
     float lightX,lightY,lightZ;
     
     Lighting lighting;
+    
+    float foam;
+    float future[10];
 } Control;
