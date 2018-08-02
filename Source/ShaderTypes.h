@@ -25,10 +25,6 @@ typedef struct {
     float multiplier;
     float dali;
     
-    float cameraX,cameraY,cameraZ; // swift access
-    float focusX,focusY,focusZ;
-    float lightX,lightY,lightZ;
-    
     Lighting lighting;
     
     float foam;

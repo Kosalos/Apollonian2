@@ -8,7 +8,7 @@ protocol WGDelegate {
     func wgGetOptionString(_ ident:Int) -> String
 }
 
-enum WgEntryKind { case singleFloat,dualFloat,dropDown,option,command,legend,line,string,color,move,gap }
+enum WgEntryKind { case singleFloat,dualFloat,dropDown,option,command,legend,line,string,color,move,gap,float3Dual,float3Single }
 enum CmdIdent { case none,changeEnd,power,zoom,mDist,multiplier,dali,light,ambient,diffuse,specular,harshness,saturation,
     gamma,shadowMin,shadowMax,shadowMult,shadowAmt,reset,saveLoad,help,stereo,parallax,autoChg,loadedData,foam }
 
@@ -54,13 +54,33 @@ struct wgEntryData {
         return v;
     }
     
-    func valueRatio(_ who:Int) -> CGFloat {
-        let den = mRange.y - mRange.x
-        if den == 0 { return CGFloat(0) }
-        let v = CGFloat((getFloatValue(who) - mRange.x) / den )
+    func ratioClamped(_ v:CGFloat) -> CGFloat {
         if v < 0.05 { return CGFloat(0.05) }          // so graph line is always visible
         if v > 0.95 { return CGFloat(0.95) }
         return v
+    }
+    
+    func valueRatio(_ who:Int) -> CGFloat {
+        let den = mRange.y - mRange.x
+        if den == 0 { return CGFloat(0) }
+        return ratioClamped(CGFloat((getFloatValue(who) - mRange.x) / den ))
+    }
+    
+    func float3ValueRatio(_ who:Int) -> CGFloat {
+        func getFloat3Value(_ who:Int) -> Float {
+            if valuePointerX == nil { return 0 }
+            let v:float3 = valuePointerX.load(as: float3.self)
+            switch who {
+            case 0 : return v.x
+            case 1 : return v.y
+            case 2 : return v.z
+            default: return 0
+            }
+        }
+        
+        let den = mRange.y - mRange.x
+        if den == 0 { return CGFloat(0) }
+        return ratioClamped(CGFloat((getFloat3Value(who) - mRange.x) / den ))
     }
 }
 
@@ -128,7 +148,21 @@ class WidgetGroup: UIView {
         data[dIndex].valuePointerY = vy
         addCommon(dIndex,min,max,delta,iname,nCmd)
     }
-    
+
+    func addFloat3Dual(_ vx:UnsafeMutableRawPointer, _ min:Float, _ max:Float,  _ delta:Float, _ iname:String, _ nCmd:CmdIdent = .none) {
+        newEntry()
+        data[dIndex].kind = .float3Dual
+        data[dIndex].valuePointerX = vx
+        addCommon(dIndex,min,max,delta,iname,nCmd)
+    }
+
+    func addFloat3Single(_ vx:UnsafeMutableRawPointer, _ min:Float, _ max:Float,  _ delta:Float, _ iname:String, _ nCmd:CmdIdent = .none) {
+        newEntry()
+        data[dIndex].kind = .float3Single
+        data[dIndex].valuePointerX = vx
+        addCommon(dIndex,min,max,delta,iname,nCmd)
+    }
+
     func addDropDown(_ vx:UnsafeMutableRawPointer, _ items:[String]) {
         newEntry()
         data[dIndex].kind = .dropDown
@@ -203,12 +237,24 @@ class WidgetGroup: UIView {
             context!.setLineWidth(2)
             UIColor.white.set()
             
-            let cx = rect.origin.x + d.valueRatio(0) * rect.width
-            drawVLine(context!,cx,rect.origin.y,rect.origin.y + GrphSZ)
-            
-            if d.kind == .dualFloat {
-                let y = rect.origin.y + (1.0 - d.valueRatio(1)) * rect.height
+            switch d.kind {
+            case .float3Dual :
+                let cx = rect.origin.x + d.float3ValueRatio(0) * rect.width
+                drawVLine(context!,cx,rect.origin.y,rect.origin.y + GrphSZ)
+                
+                let y = rect.origin.y + (1.0 - d.float3ValueRatio(1)) * rect.height
                 drawHLine(context!,rect.origin.x,rect.origin.x + GrphSZ,y)
+            case .float3Single :
+                let cx = rect.origin.x + d.float3ValueRatio(2) * rect.width
+                drawVLine(context!,cx,rect.origin.y,rect.origin.y + GrphSZ)
+            default :
+                let cx = rect.origin.x + d.valueRatio(0) * rect.width
+                drawVLine(context!,cx,rect.origin.y,rect.origin.y + GrphSZ)
+                
+                if d.kind == .dualFloat || d.kind == .float3Dual {
+                    let y = rect.origin.y + (1.0 - d.valueRatio(1)) * rect.height
+                    drawHLine(context!,rect.origin.x,rect.origin.x + GrphSZ,y)
+                }
             }
         }
         
@@ -221,7 +267,7 @@ class WidgetGroup: UIView {
         data[index].yCoord = py
         
         switch(data[index].kind) {
-        case .singleFloat, .dualFloat, .move :
+        case .singleFloat, .dualFloat, .move, .float3Dual, .float3Single :
             drawText(Tab2+10,py+TxtYoff,tColor,FontSZ,data[index].str[0])
             drawGraph(index)
             
@@ -282,25 +328,39 @@ class WidgetGroup: UIView {
     
     //MARK:-
     
+    func float3Value() -> float3 {
+        if focus == NONE { return float3() }
+        return data[focus].valuePointerX.load(as: float3.self)
+    }
+    
     func update() -> Bool {
         if focus == NONE { return false }
-        
-        if data[focus].isValueWidget() {
-            if deltaX == 0 && deltaY == 0 {  // marks end of session
-                return false
+        if deltaX == 0 && deltaY == 0 { return false } // marks end of session
+
+        switch data[focus].kind {
+        case .float3Single :  // hardwired to .z field of float3
+            var v:float3 = float3Value()
+            v.z = fClamp2(v.z + deltaX * data[focus].deltaValue, data[focus].mRange)
+            data[focus].valuePointerX.storeBytes(of:v, as:float3.self)
+        case .float3Dual :   // hardwired to .xy fields of float3
+            var v:float3 = float3Value()
+            v.x = fClamp2(v.x + deltaX * data[focus].deltaValue, data[focus].mRange)
+            v.y = fClamp2(v.y + deltaY * data[focus].deltaValue, data[focus].mRange)
+            data[focus].valuePointerX.storeBytes(of:v, as:float3.self)
+        default :
+            if data[focus].isValueWidget() {
+                let valueX = fClamp2(data[focus].getFloatValue(0) + deltaX * data[focus].deltaValue, data[focus].mRange)
+                data[focus].valuePointerX.storeBytes(of:valueX, as:Float.self)
+                
+                if data[focus].kind == .dualFloat {
+                    let valueY = fClamp2(data[focus].getFloatValue(1) + deltaY * data[focus].deltaValue, data[focus].mRange)
+                    data[focus].valuePointerY.storeBytes(of:valueY, as:Float.self)
+                }
             }
-            
-            let valueX = fClamp2(data[focus].getFloatValue(0) + deltaX * data[focus].deltaValue, data[focus].mRange)
-            data[focus].valuePointerX.storeBytes(of:valueX, as:Float.self)
-            
-            if data[focus].kind == .dualFloat {
-                let valueY = fClamp2(data[focus].getFloatValue(1) + deltaY * data[focus].deltaValue, data[focus].mRange)
-                data[focus].valuePointerY.storeBytes(of:valueY, as:Float.self)
-            }
-            
-            delegate?.wgCommand(data[focus].cmd)
+            else { return false }
         }
         
+        delegate?.wgCommand(data[focus].cmd)
         setNeedsDisplay()
         return true
     }
@@ -378,7 +438,7 @@ class WidgetGroup: UIView {
         
         for i in 0 ..< data.count { // move Focus to this entry?
             
-            if [ .singleFloat, .dualFloat, .command, .option, .dropDown, .move ].contains(data[i].kind) {
+            if [ .singleFloat, .dualFloat, .command, .option, .dropDown, .move, .float3Dual, .float3Single ].contains(data[i].kind) {
                 if pt.y >= data[i].yCoord && pt.y < data[i].yCoord + RowHT {
                     focus = i
                     setNeedsDisplay()

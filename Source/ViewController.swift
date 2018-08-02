@@ -95,8 +95,8 @@ class ViewController: UIViewController, WGDelegate  {
         wg.addSingleFloat(&control.multiplier,sPmin,sPmax,sPchg, "multiplier",.multiplier)
         wg.addSingleFloat(&control.dali,0.1,1,0.1, "Dali",.dali)
         wg.addLine()
-        wg.addDualFloat(UnsafeMutableRawPointer(&control.lightX),UnsafeMutableRawPointer(&control.lightY),cameraMin, cameraMax, cameraDelta,"Light XY",.light)
-        wg.addSingleFloat(&control.lightZ, cameraMin,cameraMax,cameraDelta, "Light Z",.light)
+        wg.addFloat3Dual(&control.light,cameraMin, cameraMax, cameraDelta,"Light XY",.light)
+        wg.addFloat3Single(&control.light,cameraMin,cameraMax,cameraDelta, "Light Z",.light)
         wg.addLine()
         wg.addColor(1,Float(RowHT * 11))
         wg.addSingleFloat(&control.lighting.ambient,sPmin,sPmax,sPchg, "ambient",.ambient)
@@ -198,21 +198,21 @@ class ViewController: UIViewController, WGDelegate  {
         let direction = simd_make_float4(0,0.1,0,0)
         let rotatedDirection = simd_mul(arcBall.transformMatrix, direction)
         
-        control.focusX = rotatedDirection.x + control.cameraX
-        control.focusY = rotatedDirection.y + control.cameraY
-        control.focusZ = rotatedDirection.z + control.cameraZ
+        control.focus.x = rotatedDirection.x + control.camera.x
+        control.focus.y = rotatedDirection.y + control.camera.y
+        control.focus.z = rotatedDirection.z + control.camera.z
     }
     
     func alterPosition(_ dx:Float, _ dy:Float, _ dz:Float) {
         func axisAlter(_ dir:float4, _ amt:Float) {
             let diff = simd_mul(arcBall.transformMatrix, dir) * amt / 300.0
             
-            control.cameraX -= diff.x
-            control.cameraY -= diff.y
-            control.cameraZ -= diff.z
-            control.focusX -= diff.x
-            control.focusY -= diff.y
-            control.focusZ -= diff.z
+            control.camera.x -= diff.x
+            control.camera.y -= diff.y
+            control.camera.z -= diff.z
+            control.focus.x -= diff.x
+            control.focus.y -= diff.y
+            control.focus.z -= diff.z
         }
         
         let q:Float = 0.1
@@ -264,15 +264,15 @@ class ViewController: UIViewController, WGDelegate  {
     }
     
     func reset() {
-        control.cameraX = 0.509296
-        control.cameraY = 11.3861
-        control.cameraZ = 0.460886
-        control.focusX = 0.509277
-        control.focusY = 11.3799
-        control.focusZ = 0.550133
-        control.lightX = 1
-        control.lightY = 1
-        control.lightZ = 1
+        control.camera.x = 0.509296
+        control.camera.y = 11.3861
+        control.camera.z = 0.460886
+        control.focus.x = 0.509277
+        control.focus.y = 11.3799
+        control.focus.z = 0.550133
+        control.light.x = 1
+        control.light.y = 1
+        control.light.z = 1
         control.zoom = 0.956
         control.minDist = 0.003
         dist1000 = control.minDist * 1000.0
@@ -358,23 +358,14 @@ class ViewController: UIViewController, WGDelegate  {
         
         var c = control
         if isStereo {
-            if who == 0 { c.cameraX -= control.parallax; }
-            if who == 1 { c.cameraX += control.parallax; }
+            if who == 0 { c.camera.x -= control.parallax; }
+            if who == 1 { c.camera.x += control.parallax; }
         }
         
         let xs:CGFloat = metalTextureViewL.bounds.width
         let ys:CGFloat = metalTextureViewL.bounds.height
         c.ySize = Int32(ys)
         c.xSize = Int32(ys * ys / xs) // maintain aspect ratio during stereo mode
-        c.camera.x = c.cameraX
-        c.camera.y = c.cameraY
-        c.camera.z = c.cameraZ
-        c.focus.x = c.focusX
-        c.focus.y = c.focusY
-        c.focus.z = c.focusZ
-        c.light.x = c.lightX
-        c.light.y = c.lightY
-        c.light.z = c.lightZ
 
         cBuffer.contents().copyMemory(from:&c, byteCount:MemoryLayout<Control>.stride)
         
