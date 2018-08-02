@@ -107,7 +107,7 @@
         <!--Help View Controller-->
         <scene sceneID="jnZ-dH-OqI">
             <objects>
-                <viewController id="5PV-a9-Q6R" customClass="HelpViewController" customModule="MandelBulb2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5PV-a9-Q6R" customClass="HelpViewController" customModule="Apollonian2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4MA-UN-wkQ"/>
                         <viewControllerLayoutGuide type="bottom" id="m6g-MC-C3W"/>
@@ -157,7 +157,7 @@
         <!--SaveLoadVC-->
         <scene sceneID="oZi-uw-QrZ">
             <objects>
-                <viewController title="KeypadVC" id="9Km-CV-csu" userLabel="SaveLoadVC" customClass="SaveLoadViewController" customModule="MandelBulb2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="KeypadVC" id="9Km-CV-csu" userLabel="SaveLoadVC" customClass="SaveLoadViewController" customModule="Apollonian2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Uk-Y1-UDK"/>
                         <viewControllerLayoutGuide type="bottom" id="W8F-C1-ZGy"/>
@@ -171,7 +171,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SLCell" rowHeight="58" id="MZd-mj-rfN" customClass="SaveLoadCell" customModule="MandelBulb2" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SLCell" rowHeight="58" id="MZd-mj-rfN" customClass="SaveLoadCell" customModule="Apollonian2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="367" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MZd-mj-rfN" id="wLU-xi-pCX">

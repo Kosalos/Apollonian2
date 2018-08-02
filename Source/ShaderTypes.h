@@ -28,5 +28,8 @@ typedef struct {
     Lighting lighting;
     
     float foam;
-    float future[10];
+    float foam2;
+    float fog;
+    float bend;
+    float future[7];
 } Control;

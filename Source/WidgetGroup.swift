@@ -9,8 +9,7 @@ protocol WGDelegate {
 }
 
 enum WgEntryKind { case singleFloat,dualFloat,dropDown,option,command,legend,line,string,color,move,gap,float3Dual,float3Single }
-enum CmdIdent { case none,changeEnd,power,zoom,mDist,multiplier,dali,light,ambient,diffuse,specular,harshness,saturation,
-    gamma,shadowMin,shadowMax,shadowMult,shadowAmt,reset,saveLoad,help,stereo,parallax,autoChg,loadedData,foam }
+enum CmdIdent { case none,refresh,reset,saveLoad,help,stereo,autoChg,loadedData }
 
 let NONE:Int = -1
 let FontSZ:CGFloat = 20
@@ -365,6 +364,18 @@ class WidgetGroup: UIView {
         return true
     }
     
+    func moveFocus(_ dir:Int) {
+        if focus == NONE || data.count < 2 { return }
+        
+        while true {
+            focus += dir
+            if focus >= data.count { focus = 0 } else if focus < 0 { focus = data.count-1 }
+            if [ .singleFloat, .dualFloat, .float3Dual, .float3Single ].contains(data[focus].kind) { break }
+        }
+        
+        setNeedsDisplay()
+    }
+    
     //MARK:-
     
     func stopChanges() { deltaX = 0; deltaY = 0 }
@@ -374,7 +385,6 @@ class WidgetGroup: UIView {
         
         if pt.x == 0 && pt.y == 0 { // panning just ended
             stopChanges()
-            if data[focus].cmd != .none { delegate?.wgCommand(.changeEnd) }// cage changes just ended. calculate the bulb
             return
         }
         
@@ -421,7 +431,7 @@ class WidgetGroup: UIView {
     }
     
     //MARK:-
-    
+        
     func shouldMemorizeFocus() -> Bool {
         if focus == NONE { return false }
         return [ .singleFloat, .dualFloat, .option, .move ].contains(data[focus].kind)
@@ -437,13 +447,11 @@ class WidgetGroup: UIView {
         if shouldMemorizeFocus() { previousFocus = focus }
         
         for i in 0 ..< data.count { // move Focus to this entry?
-            
-            if [ .singleFloat, .dualFloat, .command, .option, .dropDown, .move, .float3Dual, .float3Single ].contains(data[i].kind) {
-                if pt.y >= data[i].yCoord && pt.y < data[i].yCoord + RowHT {
-                    focus = i
-                    setNeedsDisplay()
-                    return
-                }
+            if [ .singleFloat, .dualFloat, .command, .option, .dropDown, .move, .float3Dual, .float3Single ].contains(data[i].kind) &&
+                pt.y >= data[i].yCoord && pt.y < data[i].yCoord + RowHT {
+                focus = i
+                setNeedsDisplay()
+                return
             }
         }
     }

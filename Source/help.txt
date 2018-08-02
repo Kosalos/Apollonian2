@@ -18,6 +18,7 @@ A button command is performed by selecting the
 legend, then releasing your finger.
 
 Note: Double Tap image to toggle display of control panel.
+Note: Swipe control panel up/down to move focus.
 
 A. Zoom: affect camera distance from towers
 B. minDist: control how closely the distance estimation
@@ -35,7 +36,11 @@ G. Collection of lighting effects.
 H. autoChg: auto Change
    automatically cycles all the lighting effects.
 
-Not shown: Foam  experimental variable
+Not shown:
+    Foam, Foam2, Bend
+    experimental variables to trash the classic algorithm
+
+    Fog: distance affects brightness
 
 I. Save/Load: Launch the Save/Load dialog.
 K. Reset to sane parameters

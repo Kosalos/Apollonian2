@@ -30,8 +30,8 @@ float scene(float3 pos,Control control) {
     
     float s = 1.0;
     float aa = control.multiplier * 100;
-    float t = 1.0 + 0.25 * cos(0.02 * PI * aa * (pos.z - pos.x) / scale);
-    
+    float t = control.foam2 + 0.25 * cos(control.bend * PI * aa * (pos.z - pos.x) / scale);
+
     for (int i=0; i<10; i++) {
         pos = -1.0 + 2.0 * fract(0.5 * pos + 0.5);
         float r2 = dot(pos,pos);
@@ -136,11 +136,8 @@ float3 lighting(float ambient, float diffuse, float specular, float harshness, f
     
     float occ = calc_AO(p, normal,control);
     
-    float3 light1Pos = control.light;
-    float3 light1Intensity = float3(1); // 0.4);
-    
-    color += phong_contrib(diffuse, specular, harshness, p, eye, light1Pos, light1Intensity, control);
-    color = mix(color, color * occ * soft_shadow(p, normalize(light1Pos), control.lighting.shadowMin, control.lighting.shadowMax * 10, control.lighting.shadowMult * 30,control), control.lighting.shadowAmt);
+    color += phong_contrib(diffuse, specular, harshness, p, eye, control.light, 1, control);
+    color = mix(color, color * occ * soft_shadow(p, control.light, control.lighting.shadowMin, control.lighting.shadowMax * 10, control.lighting.shadowMult * 30,control), control.lighting.shadowAmt);
 
     return color;
 }
@@ -173,6 +170,8 @@ kernel void rayMarchShader
         color = lighting(control.lighting.ambient,control.lighting.diffuse,control.lighting.specular,(1 - control.lighting.harshness) * 10, p, control.camera,control);
     }
     
+    color *= (1 - dist/control.fog);
+
     outTexture.write(float4(color,1),p);
 }
 

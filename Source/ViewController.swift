@@ -63,13 +63,26 @@ class ViewController: UIViewController, WGDelegate  {
 
         cBuffer = device.makeBuffer(bytes: &control, length: MemoryLayout<Control>.stride, options: MTLResourceOptions.storageModeShared)        
         layoutViews()
+
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
+        swipeUp.direction = .up
+        self.view.addGestureRecognizer(swipeUp)
         
-//        let toeInRange:Float = 0.008
-//        sToeIn.initializeFloat(&control.parallax,.delta, -toeInRange,+toeInRange,0.001, "Parallax")
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
 
         reset()
         Timer.scheduledTimer(withTimeInterval:0.05, repeats:true) { timer in self.timerHandler() }
         updateImage()
+    }
+    
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        switch gesture.direction {
+        case .up : wg.moveFocus(-1)
+        case .down : wg.moveFocus(+1)
+        default : break
+        }
     }
     
     //MARK: -
@@ -90,28 +103,32 @@ class ViewController: UIViewController, WGDelegate  {
     
     func initializeWidgetGroup() {
         wg.reset()
-        wg.addSingleFloat(&control.zoom,zoomMin, zoomMax, 2, "Zoom",.zoom)
-        wg.addSingleFloat(&dist1000,distMin, distMax, 50, "minDist",.mDist)
-        wg.addSingleFloat(&control.multiplier,sPmin,sPmax,sPchg, "multiplier",.multiplier)
-        wg.addSingleFloat(&control.dali,0.1,1,0.1, "Dali",.dali)
+        wg.addSingleFloat(&control.zoom,zoomMin, zoomMax, 2, "Zoom",.refresh)
+        wg.addSingleFloat(&dist1000,distMin, distMax, 50, "minDist",.refresh)
+        wg.addSingleFloat(&control.multiplier,sPmin,sPmax,sPchg, "multiplier",.refresh)
+        wg.addSingleFloat(&control.dali,0.1,1,0.1, "Dali",.refresh)
         wg.addLine()
-        wg.addFloat3Dual(&control.light,cameraMin, cameraMax, cameraDelta,"Light XY",.light)
-        wg.addFloat3Single(&control.light,cameraMin,cameraMax,cameraDelta, "Light Z",.light)
+        wg.addFloat3Dual(&control.light,cameraMin, cameraMax, cameraDelta,"Light XY",.refresh)
+        wg.addFloat3Single(&control.light,cameraMin,cameraMax,cameraDelta, "Light Z",.refresh)
         wg.addLine()
         wg.addColor(1,Float(RowHT * 11))
-        wg.addSingleFloat(&control.lighting.ambient,sPmin,sPmax,sPchg, "ambient",.ambient)
-        wg.addSingleFloat(&control.lighting.diffuse,sPmin,sPmax,sPchg, "diffuse",.diffuse)
-        wg.addSingleFloat(&control.lighting.specular,sPmin,sPmax,sPchg, "specular",.specular)
-        wg.addSingleFloat(&control.lighting.harshness,sPmin,sPmax,sPchg, "harsh",.harshness)
-        wg.addSingleFloat(&control.lighting.saturation,sPmin,sPmax,sPchg, "saturate",.saturation)
-        wg.addSingleFloat(&control.lighting.gamma,sPmin,sPmax,sPchg, "gamma",.gamma)
-        wg.addSingleFloat(&control.lighting.shadowMin,sPmin,sPmax,sPchg, "sMin",.shadowMin)
-        wg.addSingleFloat(&control.lighting.shadowMax,sPmin,sPmax,sPchg, "sMax",.shadowMax)
-        wg.addSingleFloat(&control.lighting.shadowMult,sPmin,sPmax,sPchg, "sMult",.shadowMult)
-        wg.addSingleFloat(&control.lighting.shadowAmt,sPmin,sPmax,sPchg, "sAmt",.shadowAmt)
+        wg.addSingleFloat(&control.lighting.ambient,sPmin,sPmax,sPchg, "ambient",.refresh)
+        wg.addSingleFloat(&control.lighting.diffuse,sPmin,sPmax,sPchg, "diffuse",.refresh)
+        wg.addSingleFloat(&control.lighting.specular,sPmin,sPmax,sPchg, "specular",.refresh)
+        wg.addSingleFloat(&control.lighting.harshness,sPmin,sPmax,sPchg, "harsh",.refresh)
+        wg.addSingleFloat(&control.lighting.saturation,sPmin,sPmax,sPchg, "saturate",.refresh)
+        wg.addSingleFloat(&control.lighting.gamma,sPmin,sPmax,sPchg, "gamma",.refresh)
+        wg.addSingleFloat(&control.lighting.shadowMin,sPmin,sPmax,sPchg, "sMin",.refresh)
+        wg.addSingleFloat(&control.lighting.shadowMax,sPmin,sPmax,sPchg, "sMax",.refresh)
+        wg.addSingleFloat(&control.lighting.shadowMult,sPmin,sPmax,sPchg, "sMult",.refresh)
+        wg.addSingleFloat(&control.lighting.shadowAmt,sPmin,sPmax,sPchg, "sAmt",.refresh)
         wg.addCommand("auto Chg",.autoChg)
         wg.addLine()
-        wg.addSingleFloat(&control.foam, 0.5,2,0.1, "Foam",.foam)
+        wg.addSingleFloat(&control.foam, 0.5,2,0.1, "Foam",.refresh)
+        wg.addSingleFloat(&control.foam2, 0.5,2,0.4, "Foam2",.refresh)
+        wg.addSingleFloat(&control.bend, 0.01,0.03,0.01, "Bend",.refresh)
+        wg.addLine()
+        wg.addSingleFloat(&control.fog, 10,100,30, "Fog",.refresh)
         wg.addLine()
         wg.addCommand("Save/Load",.saveLoad)
         wg.addCommand("Help",.help)
@@ -120,7 +137,7 @@ class ViewController: UIViewController, WGDelegate  {
         wg.addCommand("Stereo",.stereo)
         
         if isStereo {
-            wg.addSingleFloat(&control.parallax,-0.01,0.01,0.0002, "Parallax",.parallax)
+            wg.addSingleFloat(&control.parallax,-0.01,0.01,0.0002, "Parallax",.refresh)
         }
         
         wg.addLine()
@@ -144,8 +161,10 @@ class ViewController: UIViewController, WGDelegate  {
             autoChg = !autoChg
         case .loadedData :
             Timer.scheduledTimer(withTimeInterval:0.05, repeats:false) { timer in self.delayedLoad() }
-        default :
+        case .refresh :
             updateImage()
+        default :
+            break
         }
     }
     
@@ -289,7 +308,10 @@ class ViewController: UIViewController, WGDelegate  {
         control.lighting.shadowAmt = 0.5
         control.dali = 1
         control.foam = 1
-
+        control.foam2 = 1
+        control.fog = 100
+        control.bend = 0.02
+        
         autoChg = false
         resetArcBall()
     }
@@ -335,11 +357,16 @@ class ViewController: UIViewController, WGDelegate  {
     }
     
     var isBusy:Bool = false
+    //var ui:Int = 0
     
     func updateImage() {
+        //print("UpdateImage",ui); ui += 1
         if isBusy { return }
         isBusy = true
         
+        control.light = normalize(control.light)
+        control.minDist = dist1000 / 1000.0
+
         calcRayMarch(0)
         metalTextureViewL.display(metalTextureViewL.layer)
         
@@ -354,8 +381,6 @@ class ViewController: UIViewController, WGDelegate  {
     //MARK: -
     
     func calcRayMarch(_ who:Int) {
-        control.minDist = dist1000 / 1000.0
-        
         var c = control
         if isStereo {
             if who == 0 { c.camera.x -= control.parallax; }
