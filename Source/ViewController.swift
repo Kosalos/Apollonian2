@@ -366,7 +366,6 @@ class ViewController: UIViewController, WGDelegate  {
         if isBusy { return }
         isBusy = true
         
-        control.light = normalize(control.light)
         control.minDist = dist1000 / 1000.0
 
         calcRayMarch(0)
@@ -393,6 +392,7 @@ class ViewController: UIViewController, WGDelegate  {
         let ys:CGFloat = metalTextureViewL.bounds.height
         c.ySize = Int32(ys)
         c.xSize = Int32(ys * ys / xs) // maintain aspect ratio during stereo mode
+        c.light = normalize(control.light)
 
         cBuffer.contents().copyMemory(from:&c, byteCount:MemoryLayout<Control>.stride)
         
