@@ -111,6 +111,9 @@ class ViewController: UIViewController, WGDelegate  {
         wg.addFloat3Dual(&control.light,cameraMin, cameraMax, cameraDelta,"Light XY",.refresh)
         wg.addFloat3Single(&control.light,cameraMin,cameraMax,cameraDelta, "Light Z",.refresh)
         wg.addLine()
+        wg.addFloat3Dual(&control.color,0,5,1,"Color RG",.refresh)
+        wg.addFloat3Single(&control.color,0,5,1,"Color B",.refresh)
+        wg.addLine()
         wg.addColor(1,Float(RowHT * 11))
         wg.addSingleFloat(&control.lighting.ambient,sPmin,sPmax,sPchg, "ambient",.refresh)
         wg.addSingleFloat(&control.lighting.diffuse,sPmin,sPmax,sPchg, "diffuse",.refresh)
@@ -289,11 +292,10 @@ class ViewController: UIViewController, WGDelegate  {
         control.focus.x = 0.509277
         control.focus.y = 11.3799
         control.focus.z = 0.550133
-        control.light.x = 1
-        control.light.y = 1
-        control.light.z = 1
+        control.light = float3(1,1,1)
+        control.color = float3(1,1,1)
         control.zoom = 0.956
-        control.minDist = 0.003
+        control.minDist = 0.006
         dist1000 = control.minDist * 1000.0
         control.lighting.ambient = 0.5
         control.lighting.diffuse = 0.5
@@ -305,7 +307,7 @@ class ViewController: UIViewController, WGDelegate  {
         control.lighting.shadowMin = 0.5
         control.lighting.shadowMax = 0.5
         control.lighting.shadowMult = 0.5
-        control.lighting.shadowAmt = 0.5
+        control.lighting.shadowAmt = 0.1
         control.dali = 1
         control.foam = 1
         control.foam2 = 1

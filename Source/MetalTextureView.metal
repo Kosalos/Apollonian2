@@ -19,11 +19,11 @@ vertex Attribute metalTextureView_Vertex
     return Attribute(vertices[idx]);
 }
 
-fragment float4 metalTextureView_Fragment
+fragment half4 metalTextureView_Fragment
 (
  Attribute const attribute [[ stage_in ]],
  texture2d<float, access::sample> texture [[ texture(0) ]],
  sampler const sampler [[ sampler(0) ]])
 {
-    return texture.sample(sampler, attribute.texcoord);
+    return half4(texture.sample(sampler, attribute.texcoord));
 }

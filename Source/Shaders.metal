@@ -11,7 +11,7 @@ constant int MAX_MARCHING_STEPS = 255;
 constant float MIN_DIST = 0.0;
 constant float MAX_DIST = 20; //100.0;
 constant float EPSILON = 0.0001;
-constant float N_EPSILON = 0.001;
+constant float NE = 0.001;
 
 float3 toRectangular(float3 sph) {
     float ss = sph.x * sin(sph.z);
@@ -64,10 +64,10 @@ float shortest_dist(float3 eye, float3 marchingDirection, Control control) {
 }
 
 float3 estimate_normal(float3 p, Control control) {
-    return normalize(float3(
-                            scene(float3(p.x + N_EPSILON, p.y, p.z),control) - scene(float3(p.x - N_EPSILON, p.y, p.z),control),
-                            scene(float3(p.x, p.y + N_EPSILON, p.z),control) - scene(float3(p.x, p.y - N_EPSILON, p.z),control),
-                            scene(float3(p.x, p.y, p.z  + N_EPSILON),control) - scene(float3(p.x, p.y, p.z - N_EPSILON),control)  ));
+    float x = scene(float3(p.x + NE, p.y     , p.z     ),control) - scene(float3(p.x - NE, p.y     , p.z     ),control);
+    float y = scene(float3(p.x     , p.y + NE, p.z     ),control) - scene(float3(p.x     , p.y - NE, p.z     ),control);
+    float z = scene(float3(p.x     , p.y     , p.z + NE),control) - scene(float3(p.x     , p.y     , p.z - NE),control);
+    return normalize(float3(x * control.color.x, y * control.color.y, z * control.color.z));
 }
 
 float3 phong_contrib
@@ -130,12 +130,12 @@ float soft_shadow(float3 camera, float3 light, float mint, float maxt, float k, 
 float3 lighting(float ambient, float diffuse, float specular, float harshness, float3 p, float3 eye, Control control) {
     float3 color = float3(ambient);
     float3 normal = estimate_normal(p,control);
-    
+
     color = mix(color, normal, control.lighting.saturation);
     color = mix(color, float3(1.0 - smoothstep(0.0, 0.6, distance(float2(0.0), p.xy))), control.lighting.gamma);
-    
+
     float occ = calc_AO(p, normal,control);
-    
+
     color += phong_contrib(diffuse, specular, harshness, p, eye, control.light, 1, control);
     color = mix(color, color * occ * soft_shadow(p, control.light, control.lighting.shadowMin, control.lighting.shadowMax * 10, control.lighting.shadowMult * 30,control), control.lighting.shadowAmt);
 

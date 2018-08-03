@@ -18,6 +18,7 @@ typedef struct {
     vector_float3 camera;
     vector_float3 focus;
     vector_float3 light;
+    vector_float3 color;
     int xSize,ySize;
     float minDist;
     float zoom;
